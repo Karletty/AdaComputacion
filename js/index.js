@@ -50,6 +50,59 @@ const ventas = [
     },
 ];
 
+/* FUNCIONES ADICIONALES*/
+/*---------------------------------------------------*/
+/* Devuelve la vendedora que más ventas ha hecho en el total de ventas*/
+const vendedoraEstrella = () => {
+    let mayor = "Ada";
+    for (const vendedora of vendedoras) {
+        if (ventasVendedora(mayor) < ventasVendedora(vendedora)) {
+            mayor = vendedora;
+        }
+    }
+    return mayor;
+}
+/*---------------------------------------------------*/
+/* Calcula el total de ventas en un array de ventas*/
+const totalVentas = arrayVentas => {
+    total = 0;
+    for (const venta of arrayVentas) {
+        total += precioMaquina(venta.componentes);
+    }
+    return total;
+}
+
+/*---------------------------------------------------*/
+/* Filtra las ventas según un parámetro y un valor determinado para ese parámetro*/
+const filtroVentas = (parametro, valor) => {
+    let ventasFiltradas = ventas.filter(venta => venta[parametro] === valor)
+    return totalVentas(ventasFiltradas);
+}
+
+/*---------------------------------------------------*/
+/* Retorna el total de las ventas filtradas por un parámetro y el valor de este*/
+const ganadorDelMes = (parametro, array, mes, anio) => {
+    let ventasPorCategoria = [];
+    let ventasFiltradas = ventas.filter(venta => venta.fecha.getMonth() === mes - 1 && venta.fecha.getFullYear() === anio);
+    let ganador;
+    for (const valor of array) {
+        ventasPorCategoria.push({ nombre: valor, total: 0 });
+    }
+    for (const venta of ventasFiltradas) {
+        i = array.indexOf(venta[parametro]);
+        ventasPorCategoria[i].total += precioMaquina(venta.componentes);
+    }
+    for (const item of ventasPorCategoria) {
+        if (ganador === undefined) {
+            ganador = item;
+        }
+        else if (ganador.total < item.total) {
+            ganador = item;
+        }
+    }
+    return ganador.nombre
+}
+
 /* FUNCIONES */
 /*---------------------------------------------------*/
 /* Recibe un array de componentes y devuelve el precio de la máquina que se puede armar con esos componentes, que es la suma de los precios de cada componente incluido */
@@ -84,25 +137,7 @@ const cantidadVentasComponente = componente => {
 /*---------------------------------------------------*/
 /* Se le pasa dos parámetros numéricos, (mes, anio) y devuelve el nombre de la vendedora que más vendió en plata en el mes. O sea no cantidad de ventas, sino importe total de las ventas. El importe de una venta es el que indica la función precioMaquina. El mes es un número entero que va desde el 1 (enero) hasta el 12 (diciembre).*/
 const vendedoraDelMes = (mes, anio) => {
-    let ventasPorVendedora = [];
-    let ventasFiltradas = ventas.filter(venta => venta.fecha.getMonth() === mes - 1 && venta.fecha.getFullYear() === anio);
-    let vendedoraMes;
-    for (const vendedora of vendedoras) {
-        ventasPorVendedora.push({ vendedora: vendedora, total: 0 });
-    }
-    for (const venta of ventasFiltradas) {
-        i = vendedoras.indexOf(venta.nombreVendedora);
-        ventasPorVendedora[i].total += precioMaquina(venta.componentes);
-    }
-    for (const item of ventasPorVendedora) {
-        if (vendedoraMes === undefined) {
-            vendedoraMes = item;
-        }
-        else if (vendedoraMes.total < item.total) {
-            vendedoraMes = item;
-        }
-    }
-    return vendedoraMes.vendedora;
+    return ganadorDelMes("nombreVendedora", vendedoras, mes, anio)
 }
 //console.log(vendedoraDelMes(1, 2019)); // "Ada"
 
@@ -117,8 +152,7 @@ const ventasMes = (mes, anio) => {
 /*---------------------------------------------------*/
 /*  Obtiene las ventas totales realizadas por una vendedora sin límite de fecha. */
 const ventasVendedora = nombre => {
-    let ventasFiltradas = ventas.filter(venta => venta.nombreVendedora === nombre);
-    return totalVentas(ventasFiltradas);
+    return filtroVentas("nombreVendedora", nombre);
 }
 //console.log(ventasVendedora('Grace')); // 900
 
@@ -163,31 +197,12 @@ const huboVentas = (mes, anio) => {
 /*---------------------------------------------------*/
 /* Obtiene las ventas totales realizadas por una sucursal sin límite de fecha. */
 const ventasSucursal = sucursal => {
-    let ventasFiltradas = ventas.filter(venta => venta.sucursal === sucursal);
-    return totalVentas(ventasFiltradas);
+    return filtroVentas("sucursal", sucursal);
 }
 //console.log(ventasSucursal('Centro')); // 990
 
 /*---------------------------------------------------*//* Se le pasa dos parámetros numéricos, (mes, anio) y devuelve el nombre de la sucursal que más vendió en plata en el mes. No cantidad de ventas, sino importe total de las ventas. El importe de una venta es el que indica la función precioMaquina. El mes es un número entero que va desde el 1 (enero) hasta el 12 (diciembre). */
 const sucursalDelMes = (mes, anio) => {
-  let ventasPorSucursal = [];
-  let ventasFiltradas = ventas.filter(venta => venta.fecha.getMonth() === mes - 1 && venta.fecha.getFullYear() === anio);
-  let sucursalMes;
-  for (const sucursal of sucursales) {
-    ventasPorSucursal.push({ sucursal: sucursal, total: 0 })
-  }
-  for (const venta of ventasFiltradas) {
-    i = sucursales.indexOf(venta.sucursal);
-    ventasPorSucursal[i].total += precioMaquina(venta.componentes);
-  }
-  for (const item of ventasPorSucursal) {
-    if (sucursalMes === undefined) {
-      sucursalMes = item;
-    }
-    else if (sucursalMes.total < item.total) {
-      sucursalMes = item;
-    }
-  }
-  return sucursalMes.sucursal
+    return ganadorDelMes("sucursal", sucursales, mes, anio);
 }
 //console.log(sucursalDelMes(1, 2019)); // "Centro"
