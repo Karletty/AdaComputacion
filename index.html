@@ -8,7 +8,143 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <main>
+        <section class="container">
+            <!--TARJETA VENTAS POR SUCURSAL-->
+            <div class="card half">
+                <div class="card-title">
+                    <h1>Ventas por sucursal</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sucursal</th>
+                                <th scope="col">Total Ventas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ventas-sucursal">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--TARJETA REPORTES-->
+            <div class="card half">
+                <div class="card-title">
+                    <h1>Reportes</h1>
+                </div>
+                <div class="card-body">
+                    <p class="report-txt">Productos estrella: <span class="producto-estrella"></span></p>
+                    <p class="report-txt">Vendedora que más ingresos generó: <span class="vendedora-estrella"></span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="container venta">
+            <!--TARJETA VENTAS-->
+            <div class="card">
+                <div class="card-title">
+                    <h1>Ventas</h1>
+                    <button id="btn-nueva-venta" class="btn btn-success"><i class="fas fa-plus-circle"></i>
+                        Nueva venta</button>
+                </div>
+                <div class="card-body ventas">
+                    <table id="ventas" class="table">
+                    </table>
+                </div>
+            </div>
+        </section>
+        <div class="mi-container not-show">
+            <!--VENTANA AGREGAR VENTA-->
+            <div class="toast position-fixed top-50 start-50 translate-middle" id="toast-agregar"
+                data-bs-autohide="false">
+                <div class="toast-header">
+                    <i class="fas fa-plus-circle"></i>
+                    <strong class="me-auto">Agregar Venta</strong>
+                </div>
+                <div class="toast-body">
+                    <form>
+                        <label class="form-label">Vendedora</label>
+                        <select class="select-vendedora form-control"></select>
+
+                        <label class="form-label">Componentes</label>
+                        <select class="select-componentes form-control" multiple>
+                        </select>
+
+                        <label class="form-label">Sucursal</label>
+                        <select class="select-sucursal form-control">
+                        </select>
+
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="select-fecha form-control">
+                    </form>
+                </div>
+                <div class="border-top btn-container">
+                    <button type="button" class="btn cerrar-toast btn-primary btn-sm"
+                        data-bs-dismiss="toast">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm cerrar-toast"
+                        data-bs-dismiss="toast" id="btn-agregar">Guardar</button>
+                </div>
+            </div>
+
+            <!--VENTANA EDITAR VENTA-->
+            <div class="toast position-fixed top-50 start-50 translate-middle" id="toast-editar"
+                data-bs-autohide="false">
+                <div class="toast-header">
+                    <i class="fas fa-plus-circle"></i>
+                    <strong class="me-auto">Editar Venta</strong>
+                </div>
+                <div class="toast-body">
+                    <form>
+                        <label class="form-label">Vendedora</label>
+                        <select class="select-vendedora form-control"></select>
+
+                        <label class="form-label">Componentes</label>
+                        <select class="select-componentes form-control" multiple>
+                        </select>
+
+                        <label class="form-label">Sucursal</label>
+                        <select class="select-sucursal form-control">
+                        </select>
+
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="select-fecha form-control">
+                    </form>
+                </div>
+                <div class="border-top btn-container">
+                    <button type="button" class="btn cerrar-toast btn-primary btn-sm"
+                        data-bs-dismiss="toast">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm cerrar-toast"
+                        data-bs-dismiss="toast" id="btn-editar">Guardar</button>
+                </div>
+            </div>
+
+            <!--VENTANA ELIMINAR VENTA-->
+            <div class="toast position-fixed top-50 start-50 translate-middle" id="toast-eliminar"
+                data-bs-autohide="false">
+                <div class="toast-header">
+                    <i class="far fa-trash-alt delete"></i>
+                    <stong class="me-auto">Eliminar Venta</stong>
+                </div>
+                <div class="toast-body">
+                    <h3>¿Estás segura?</h3>
+                    <p>Esta acción no se puede revertir</p>
+                </div>
+                <div class="border-top btn-container">
+                    <button type="button" class="btn btn-primary cerrar-toast btn-sm"
+                        data-bs-dismiss="toast">Cancelar</button>
+                    <button type="button" class="btn btn-danger btn-sm cerrar-toast" id="btn-eliminar"
+                        data-bs-dismiss="toast">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </main>
     <!--SCRIPTS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
     <script src="js/index.js"></script>
     <script src="js/toast.js"></script>
     <script src="js/prints.js"></script>
