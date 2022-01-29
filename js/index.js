@@ -51,6 +51,23 @@ const ventas = [
 ];
 
 /* FUNCIONES ADICIONALES*/
+const $ = element => document.querySelector(element);
+const $$ = element => document.querySelectorAll(element);
+
+const dateFormat = (oldDate, format) => {
+    let newDate;
+    const day = (`0${oldDate.getDate()}`).slice(-2);
+    const month = (`0${oldDate.getMonth() + 1}`).slice(-2);
+    const year = oldDate.getFullYear();
+    if (format === 1) {
+        newDate = [day, month, year];
+        newDate = newDate.join("/");
+    } else {
+        newDate = [year, month, day];
+        newDate = newDate.join("-")
+    }
+    return newDate;
+}
 /*---------------------------------------------------*/
 /* Devuelve la vendedora que más ventas ha hecho en el total de ventas*/
 const vendedoraEstrella = () => {
@@ -100,22 +117,23 @@ const ganadorDelMes = (parametro, array, mes, anio) => {
             ganador = item;
         }
     }
-    return ganador.nombre
+    return ganador.nombre;
 }
 
 /* FUNCIONES */
 /*---------------------------------------------------*/
 /* Recibe un array de componentes y devuelve el precio de la máquina que se puede armar con esos componentes, que es la suma de los precios de cada componente incluido */
 
-const precioMaquina = listaComponentes => {
+const precioMaquina = list => {
     let sumaPrecios = 0;
-    for (const componente of listaComponentes) {
-        for (const articulo of articulos) {
-            if (articulo.item === componente) {
-                sumaPrecios += articulo.precio;
+    for (const componente of list) {
+        for (const item of articulos) {
+            if (item.item === componente) {
+                sumaPrecios += item.precio;
             }
         }
     }
+    return sumaPrecios;
 }
 //console.log(precioMaquina(['Monitor GPRS 3000', 'Motherboard ASUS 1500'])); // 320 ($200 del monitor + $120 del motherboard);
 
@@ -130,14 +148,14 @@ const cantidadVentasComponente = componente => {
             }
         }
     }
-    return cantVendido
+    return cantVendido;
 }
 //console.log(cantidadVentasComponente('Monitor ASC 543')); // 2
 
 /*---------------------------------------------------*/
 /* Se le pasa dos parámetros numéricos, (mes, anio) y devuelve el nombre de la vendedora que más vendió en plata en el mes. O sea no cantidad de ventas, sino importe total de las ventas. El importe de una venta es el que indica la función precioMaquina. El mes es un número entero que va desde el 1 (enero) hasta el 12 (diciembre).*/
 const vendedoraDelMes = (mes, anio) => {
-    return ganadorDelMes("nombreVendedora", vendedoras, mes, anio)
+    return ganadorDelMes("nombreVendedora", vendedoras, mes, anio);
 }
 //console.log(vendedoraDelMes(1, 2019)); // "Ada"
 
@@ -168,7 +186,7 @@ const componenteMasVendido = () => {
         for (const item of venta.componentes) {
             for (const articulo of componentesArticulos) {
                 if (item === articulo.item) {
-                    articulo.vecesVendidas++
+                    articulo.vecesVendidas++;
                 }
             }
         }
@@ -181,7 +199,7 @@ const componenteMasVendido = () => {
             masVendido = item;
         }
     }
-    return masVendido.item
+    return masVendido.item;
 }
 
 //console.log(componenteMasVendido()); // Monitor GPRS 3000
@@ -190,7 +208,7 @@ const componenteMasVendido = () => {
 /* Indica si hubo ventas en un mes determinado. El mes es un número entero que va desde el 1 (enero) hasta el 12 (diciembre). */
 const huboVentas = (mes, anio) => {
     let ventasFiltradas = ventas.filter(venta => venta.fecha.getMonth() === mes - 1 && venta.fecha.getFullYear() === anio);
-    return ventasFiltradas.length > 0
+    return ventasFiltradas.length > 0;
 }
 //console.log(huboVentas(0, 2019)); // false
 

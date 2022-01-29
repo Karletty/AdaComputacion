@@ -38,7 +38,7 @@ main {
     margin: 20px 0;
 }
 
-.venta {
+.sell {
     margin: 0 0 40px 0;
 }
 
@@ -72,7 +72,7 @@ main {
     padding: 0;
 }
 
-.card-body.ventas {
+.card-body.sells-container{
     overflow-x: scroll;
 }
 
@@ -80,11 +80,7 @@ main {
     color: #1c9430;
 }
 
-.editar-venta {
-    padding: 0;
-}
-
-.eliminar-venta {
+.edit.sell, .delete-sell {
     padding: 0;
 }
 
@@ -92,7 +88,7 @@ main {
     color: #c51d1d;
 }
 
-#ventas {
+#sells {
     overflow-y: scroll;
 }
 
@@ -121,7 +117,7 @@ p {
     display: none;
 }
 
-.mi-container {
+.screen-overshadow {
     background-color: #555454af;
     width: 100vw;
     height: 100vh;
