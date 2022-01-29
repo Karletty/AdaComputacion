@@ -98,26 +98,37 @@ btnDelete.addEventListener("click", () => {
     update();
 });
 
-btnAdd.addEventListener("click", () => {
-    let newSale = makeObject(ventas[ventas.length - 1].id + 1, addToast);
-    if(newSale.componentes.length > 0){
-        ventas.push(newSale);
+const change = (salePosition, toast, newSale, form) => {
+    if (newSale.componentes.length > 0) {
+        if(form === 1){
+            ventas.push(newSale);
+        }
+        else{
+            ventas[salePosition] = newSale
+        }
+        hideToast(toastContainer);
+        hideToast(toast);
         toastContainer.classList.add("not-show");
         update();
-        hideToast(toastContainer);
     }
     else {
         showToast(errorToast);
     }
+}
+
+btnAdd.addEventListener("click", () => {
+    let pos = ventas[ventas.length - 1].id + 1
+    let newSale = makeObject(pos, addToast);
+    change(pos, addToast, newSale, 1);
 });
 
-btnAccept.addEventListener("click",()=>{
+btnAccept.addEventListener("click", () => {
     hideToast(errorToast);
 });
 
 btnEdit.addEventListener("click", () => {
-    ventas[salePosition] = makeObject(salePosition, editToast);
-    update();
+    let newSale = makeObject(salePosition, editToast);
+    change(salePosition, editToast, newSale, 2);
 });
 
 update();
