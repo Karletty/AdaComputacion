@@ -1,0 +1,167 @@
+@font-face {
+    font-family: "ClanOT";
+    src: url("../fonts/ClanOT-NarrowNews.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "ClanOT";
+}
+
+h1 {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+body {
+    background-color: #eeeff8;
+    min-height: 100vh;
+}
+
+main {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.sell {
+    margin: 0 0 40px 0;
+}
+
+.card {
+    border: none;
+    width: 100%;
+    box-shadow: 0px 0px 10px 0px #000000;
+}
+
+.half {
+    width: 49%;
+}
+
+.card-title {
+    background-color: #121849;
+    width: 100%;
+    color: #eeeff8;
+    padding: 10px 20px 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 2rem;
+    border-radius: 0 0 0.25rem 0.25rem;
+    padding: 0;
+}
+
+.card-body.sells-container{
+    overflow-x: scroll;
+}
+
+.add {
+    color: #1c9430;
+}
+
+.edit.sell, .delete-sell {
+    padding: 0;
+}
+
+.delete {
+    color: #c51d1d;
+}
+
+#sells {
+    overflow-y: scroll;
+}
+
+.table,
+p {
+    color: #090666;
+}
+
+.min-col {
+    min-width: 400px;
+}
+
+.min-col-2 {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu {
+    position: initial;
+    display: inline;
+}
+
+.not-show {
+    display: none;
+}
+
+.screen-overshadow {
+    background-color: #555454af;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.btn-container {
+    padding: 10px;
+}
+
+.me-auto {
+    margin: 0 10px;
+}
+
+.toast {
+    position: fixed;
+    background-color: #ffffff;
+    z-index: 9999;
+}
+
+.toast-body {
+    padding: 20px 10px;
+}
+
+.toast-header {
+    background-color: #121849;
+    font-size: 1.6em;
+    color: #eeeff8;
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .half {
+        width: 100%;
+        margin: 20px 0;
+    }
+}
